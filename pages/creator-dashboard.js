@@ -56,7 +56,7 @@ export default function CreatorDashboard() {
     )
 
     return (
-        <div className='flex justify-center'>
+        <div className='flex flex-col justify-center'>
             <div className='p-4'>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                     {
@@ -78,26 +78,33 @@ export default function CreatorDashboard() {
                 </div>
             </div>
 
-            <div className='p-4'>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-                    {
-                        sold.map((nftSold, i) => (
-                            <div key={i} className="border shadow rounded-xl overflow-hidden">
-                                <img src={nftSold.image} />
-                                <div className="p-4">
-                                    <p style={{ height: '64px' }} className="text-2xl font-semibold">{nftSold.name}</p>
-                                    <div style={{ height: '70px', overflow: 'hidden' }}>
-                                        <p className="text-gray-400">{nftSold.description}</p>
-                                    </div>
-                                </div>
-                                <div className="p-g bg-black">
-                                    <p className="text-2xl p-4 font-bold text-white">{nftSold.price} WEI</p>
-                                    <p className="text-2xl p-4 font-bold text-white bg-pink-500">SOLD OUT</p>
-                                </div>
+            <div className='px-4'>
+                {
+                    Boolean(sold.length) && (
+                        <div>
+                            <h2 className='text-2xl py-2'>Items Sold</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                                {
+                                    sold.map((nftSold, i) => (
+                                        <div key={i} className="border shadow rounded-xl overflow-hidden">
+                                            <img src={nftSold.image} />
+                                            <div className="p-4">
+                                                <p style={{ height: '64px' }} className="text-2xl font-semibold">{nftSold.name}</p>
+                                                <div style={{ height: '70px', overflow: 'hidden' }}>
+                                                    <p className="text-gray-400">{nftSold.description}</p>
+                                                </div>
+                                            </div>
+                                            <div className="p-g bg-black">
+                                                <p className="text-2xl p-4 font-bold text-white">{nftSold.price} WEI</p>
+                                                <p className="text-2xl p-4 font-bold text-white bg-pink-500">SOLD OUT</p>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                        ))
-                    }
-                </div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

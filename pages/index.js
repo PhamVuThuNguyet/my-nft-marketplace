@@ -27,6 +27,7 @@ export default function Home() {
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'wei')
       let item = {
+        itemId: i.itemId.toNumber(),
         price,
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
@@ -39,20 +40,20 @@ export default function Home() {
     }))
     setNFTs(items)
     setLoadingState('loaded')
+    console.log(items)
   }
 
   async function buyNFT(nft) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
-
     const provider = new ethers.providers.Web3Provider(connection)
-
     const signer = provider.getSigner()
+
     const contract = new ethers.Contract(ntfmarketaddress, NFTMarket.abi, signer)
 
     const price = ethers.utils.parseUnits(nft.price.toString(), 'wei')
-
-    const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, { value: price })
+    console.log(price)
+    const transaction = await contract.createMarketSale(nftaddress, nft.itemId, { value: price })
     await transaction.wait()
 
     loadNFTs()
@@ -68,8 +69,8 @@ export default function Home() {
       <div className="px-4" style={{ maxWidth: '1600px' }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
-            nfts.map((nft, i) => {
-              <div className="border shadow rounded-xl overflow-hidden" key={i}>
+            nfts.map((nft, i) => (
+              <div key={i} className="border shadow rounded-xl overflow-hidden">
                 <img src={nft.image} />
                 <div className="p-4">
                   <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
@@ -78,11 +79,11 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-g bg-black">
-                  <p className="text-2xl mb-4 font-bold text-white">{nft.price} WEI</p>
+                  <p className="text-2xl p-4 font-bold text-white">{nft.price} WEI</p>
                   <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNFT(nft)}>Buy This Asset</button>
                 </div>
               </div>
-            })
+            ))
           }
         </div>
       </div>

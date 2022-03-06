@@ -25,7 +25,7 @@ export default function CreatorDashboard() {
 
         const marketContract = new ethers.Contract(ntfmarketaddress, NFTMarket.abi, signer)
         const tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer)
-        const data = await marketContract.fetchMyNFTs()
+        const data = await marketContract.fetchMySellingNFTs()
 
         const items = await Promise.all(data.map(async i => {
             const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -44,10 +44,10 @@ export default function CreatorDashboard() {
             }
             return item
         }))
+        setNFTs(items)
 
         const soldItems = items.filter(i => i.sold)
         setSold(soldItems)
-        setNFTs(items)
         setLoadingState('loaded')
     }
 
@@ -62,7 +62,9 @@ export default function CreatorDashboard() {
                     {
                         nfts.map((nft, i) => (
                             <div key={i} className="border shadow rounded-xl overflow-hidden">
-                                <img src={nft.image} />
+                                <div className='h-4/6 overflow-hidden'>
+                                    <img src={nft.image} />
+                                </div>
                                 <div className="p-4">
                                     <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
                                     <div style={{ height: '70px', overflow: 'hidden' }}>

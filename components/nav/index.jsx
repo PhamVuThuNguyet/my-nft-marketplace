@@ -4,7 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = [
-    { name: 'Home', href: '/', current: true },
+    { name: 'Home', href: '/', current: false },
     { name: 'Selling Digital Assets', href: '/create-item', current: false },
     { name: 'My Digital Assets', href: '/my-assets', current: false },
     { name: 'Creator Dashboard', href: '/creator-dashboard', current: false },

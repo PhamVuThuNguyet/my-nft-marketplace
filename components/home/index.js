@@ -95,7 +95,7 @@ export default function HomeMain() {
                 <img src={nft.image} />{" "}
               </div>{" "}
               <div className="p-2">
-                <p className="text-2xl font-semibold h-10"> {nft.name} </p>{" "}
+                <p className="text-2xl font-semibold h-10 truncate"> {nft.name} </p>{" "}
                 <div style={{ height: "70px" }}>
                   <p className="text-gray-400 line-clamp-3">
                     {" "}

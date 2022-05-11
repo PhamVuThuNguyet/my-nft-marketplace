@@ -91,7 +91,7 @@ export default function HomeMain() {
           {" "}
           {nfts.map((nft, i) => (
             <div key={i} className="border shadow rounded-xl">
-              <div className="h-96 overflow-hidden">
+              <div className="h-80 overflow-hidden">
                 <img src={nft.image} />{" "}
               </div>{" "}
               <div className="p-2">
